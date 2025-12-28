@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy dependency files
+# Copy dependency files and app source (needed for pip install .)
 COPY pyproject.toml .
+COPY app/ ./app/
 
 # Install dependencies (PyTorch CPU version first, then the rest)
 RUN pip install --no-cache-dir --upgrade pip && \
