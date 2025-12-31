@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-from qdrantclient import QdrantClient
+from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct
 from dotenv import load_dotenv
 import os

@@ -24,6 +24,8 @@ class Settings(BaseSettings):
     OLLAMA_URL: str = "http://localhost:11434/api/generate"
     OLLAMA_MODEL: str = "qwen3"
     
+    USE_LOCAL_AI:bool = True
+    
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
