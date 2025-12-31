@@ -2,7 +2,6 @@ from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct
 from dotenv import load_dotenv
-import os
 from app.core.config import settings
 import time
 
