@@ -24,7 +24,7 @@ def distill_conversion(user_query: str, ai_response: str):
         relation = fact["relation"]
         
         if head and relation and tail:
-            relation = relation.upper().replace(" ", "_")
+            relation = relation.upper().replace(" ", "_").strip()
             
             graph_service.add_relationship(head, relation, tail)
             
