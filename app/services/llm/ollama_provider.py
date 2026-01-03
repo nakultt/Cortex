@@ -45,7 +45,7 @@ class OllamaProvider(LLMProvider):
             print(f"Ollama Error: {e}")
             return "My local brain is offline. Is Ollama running?"
 
-    def extract_facts(self, text: str):
+    async def extract_facts(self, text: str):
         """
         Reads text and extracts entities/relationships as JSON.
         """ 

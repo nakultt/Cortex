@@ -1,7 +1,7 @@
 from app.services.llm import llm_service
 from app.services import graph_service
 
-def distill_conversion(user_query: str, ai_response: str):
+async def distill_conversation(user_query: str, ai_response: str):
     """
     Analyzes the Q&A pair to find new facts and saves them to the Graph.
     This should run in the background.
@@ -10,7 +10,7 @@ def distill_conversion(user_query: str, ai_response: str):
     print("Distiller started: extracting knowledge...")
     
     full_text = f"Question: {user_query}\nAnswer:{ai_response}"
-    facts = llm_service.extract_facts(full_text)
+    facts = await llm_service.extract_facts(full_text)
     
     if not facts:
         print("No facts found to distill.")

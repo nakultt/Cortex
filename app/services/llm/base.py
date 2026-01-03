@@ -12,6 +12,6 @@ class LLMProvider(ABC):
         pass
 
     @abstractmethod
-    def extract_facts(self, text: str) -> List[Dict[str, Any]]:
+    async def extract_facts(self, text: str) -> List[Dict[str, Any]]:
         """Extracts structured facts (Head-Relation-Tail) from text."""
         pass    

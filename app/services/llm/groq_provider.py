@@ -49,7 +49,7 @@ class GroqProvider(LLMProvider):
             print(f"Groq API Error : {e}")
             return "I'm sorry, my brain is offline right now."
 
-    def extract_facts(self, text: str):
+    async def extract_facts(self, text: str):
         """
         Reads text and extracts entities/relationships as JSON.
         """    
