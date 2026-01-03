@@ -4,6 +4,7 @@ FastAPI Backend with Vector Search and Graph DB
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import chat
 
 app = FastAPI(
     title="Cortex API",
@@ -19,6 +20,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register Routers
+app.include_router(chat.router, tags=["Chat"])
 
 
 @app.get("/")
