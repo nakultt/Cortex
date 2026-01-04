@@ -27,7 +27,8 @@ class Settings(BaseSettings):
     USE_LOCAL_AI:bool
     
     class Config:
-        env_file = ".env"
+        env_file = "../.env"
         env_file_encoding = "utf-8"
+        extra = "ignore"
         
 settings = Settings() #type: ignore

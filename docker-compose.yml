@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
     ports:
-      - "5432:5432"
+      - "5434:5432"
     networks:
       - cortex-network
     restart: unless-stopped
@@ -32,7 +32,6 @@ services:
       - cortex-network
     restart: unless-stopped
     healthcheck:
-      # Use a plain TCP port check via bash (no external tools required)
       test: ["CMD", "bash", "-c", "< /dev/tcp/127.0.0.1/6333 >/dev/null 2>&1 || exit 1"]
       interval: 10s
       timeout: 5s
