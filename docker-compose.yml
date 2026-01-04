@@ -32,7 +32,8 @@ services:
       - cortex-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "bash", "-c", "curl -fsS --fail http://localhost:6333/collections || exit 1"]
+      # Use a plain TCP port check via bash (no external tools required)
+      test: ["CMD", "bash", "-c", "< /dev/tcp/127.0.0.1/6333 >/dev/null 2>&1 || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -42,7 +43,7 @@ services:
     image: neo4j:5
     container_name: cortex-neo4j
     environment:
-      NEO4J_AUTH: ${NEO4J_AUTH}
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
       NEO4J_ACCEPT_LICENSE_AGREEMENT: ${NEO4J_ACCEPT_LICENSE_AGREEMENT}
     volumes:
       - neo4j_data:/data
@@ -53,7 +54,7 @@ services:
       - cortex-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "bash", "-c", "until echo \"RETURN 1\" | cypher-shell -u neo4j -p ${NEO4J_AUTH} &> /dev/null; do sleep 1; done; exit 0"]
+      test: ["CMD", "bash", "-c", "until echo \"RETURN 1\" | cypher-shell -u neo4j -p ${NEO4J_PASSWORD} &> /dev/null; do sleep 1; done; exit 0"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -70,8 +71,6 @@ services:
       - .env
     environment:
       - PYTHONUNBUFFERED=1
-    volumes:
-      - ./backend/app:/app/app:delegated
     depends_on:
       postgres:
         condition: service_healthy
