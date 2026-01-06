@@ -2,14 +2,26 @@
 Cortex Backend - FastAPI Application
 FastAPI Backend with Vector Search and Graph DB
 """
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import chat
+
+from app.database import init_db
+from app.routers import chat, auth, conversations
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan - initialize database on startup"""
+    await init_db()
+    yield
+
 
 app = FastAPI(
     title="Cortex API",
     description="FastAPI Backend with Vector Search and Graph DB",
-    version="0.1.0"
+    version="0.1.0",
+    lifespan=lifespan
 )
 
 # CORS
@@ -22,7 +34,9 @@ app.add_middleware(
 )
 
 # Register Routers
-app.include_router(chat.router, tags=["Chat"])
+app.include_router(auth.router)
+app.include_router(chat.router)
+app.include_router(conversations.router)
 
 
 @app.get("/")
@@ -35,9 +49,7 @@ async def root():
 async def health_check():
     """Detailed health check"""
     return {
-        "status": "healthy",
-        "version": "0.1.0",
-        "services": {
-            "api": "running"
-        }
+        "status": "ok",
+        "service": "Cortex",
+        "version": "0.1.0"
     }

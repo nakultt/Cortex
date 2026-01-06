@@ -9,6 +9,7 @@ import {
   MotionValue,
 } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
+import { APP_CONFIG } from '@/config/app.config';
 
 export const Component = () => {
   const navigate = useNavigate();
@@ -74,11 +75,11 @@ export const Component = () => {
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-3xl mx-auto space-y-6 pointer-events-none">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground drop-shadow-sm">
-            ... <br />
-            ...
+            Welcome to <br />
+            {APP_CONFIG.name}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto">
-            ...
+            Your AI-powered knowledge assistant with intelligent memory and context awareness.
           </p>
         </div>
 

@@ -18,28 +18,48 @@ class OllamaProvider(LLMProvider):
         If context is provided, prioritize that information.
         """
         
-        message = [
+        messages = [
             {
                 "role": "system",
-                "context": system_instruction
+                "content": system_instruction
             },
             {
                 "role": "user",
-                "context": f"Context: {context}\n\nQustion: {query}"
+                "content": f"Context: {context}\n\nQuestion: {query}"
             }
         ]   
              
         try:
+            print(f"\n🧠 Sending to Ollama ({settings.OLLAMA_MODEL})...")
+            print(f"   Query: {query[:100]}...")
+            if context:
+                print(f"   📋 Context from Graph ({len(context)} chars):")
+                for line in context.strip().split('\n')[:5]:  # Show first 5 facts
+                    print(f"      • {line[:80]}")
+                if context.count('\n') > 5:
+                    print(f"      ... and {context.count(chr(10)) - 5} more facts")
+            
             response = ollama.chat(
                 model=settings.OLLAMA_MODEL,
-                messages=message,
+                messages=messages,
                 options={
                     "temperature": 0.7, 
-                    "num_ctx": 4096  #remember more conversation history
-                }
+                    "num_ctx": 4096
+                },
+                think=True  # Enable thinking mode for qwen3
             )
             
-            return response['message']['content']
+            # Log the thinking process if available
+            message = response.get('message', {})
+            thinking = message.get('thinking', '')
+            content = message.get('content', '')
+            
+            if thinking:
+                print(f"\n💭 Model Thinking:\n{thinking}")
+            
+            print(f"\n✅ Response: {content[:200]}...")
+            
+            return content
         
         except Exception as e:
             print(f"Ollama Error: {e}")

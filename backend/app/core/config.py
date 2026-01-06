@@ -26,6 +26,11 @@ class Settings(BaseSettings):
     
     USE_LOCAL_AI:bool
     
+    # JWT Settings
+    JWT_SECRET: str = "cortex-secret-key-change-in-production"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRATION_HOURS: int = 24
+    
     class Config:
         env_file = "../.env"
         env_file_encoding = "utf-8"

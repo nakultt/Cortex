@@ -4,6 +4,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
 import { useAuth } from "@/context/AuthContext";
 import {
   sendChatMessage,
@@ -45,11 +46,9 @@ const ChatMessage = ({ message }: { message: Message }) => {
           </p>
         </div>
       ) : (
-        // AI message
-        <div className="max-w-[85%] py-2">
-          <p className="text-sm leading-relaxed text-foreground whitespace-pre-wrap">
-            {message.content}
-          </p>
+        // AI message with markdown rendering
+        <div className="max-w-[85%] py-2 prose prose-sm dark:prose-invert prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0 prose-headings:my-2 prose-pre:bg-muted prose-pre:text-foreground">
+          <ReactMarkdown>{message.content}</ReactMarkdown>
         </div>
       )}
     </motion.div>

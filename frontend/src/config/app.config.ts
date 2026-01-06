@@ -1,25 +1,24 @@
 /**
  * Application Configuration
  * 
- * Update these values when using this project as a template.
- * This centralizes all branding and app-specific configuration.
+ * Cortex - AI-powered Knowledge Assistant
  */
 
 export const APP_CONFIG = {
   // Application Name
-  name: '{{APP_NAME}}',
+  name: 'Cortex',
   
   // Branding
-  logo: '/{{APP_LOGO}}.png',
+  logo: '/logo.png',
   
   // Version & Copyright
   version: '1.0.0',
-  copyright: '© 2026 {{APP_NAME}}. All rights reserved.',
+  copyright: '© 2026 Cortex. All rights reserved.',
   
   // Local Storage Keys
   storageKeys: {
-    user: '{{APP_NAME}}_user',
-    remember: '{{APP_NAME}}_remember'
+    user: 'cortex_user',
+    remember: 'cortex_remember'
   },
   
   // API Configuration
@@ -30,6 +29,6 @@ export const APP_CONFIG = {
   // Development Settings
   dev: {
     // Set to true to bypass login screen (useful for development/demos)
-    bypassLogin: true
+    bypassLogin: false
   }
 } as const;
