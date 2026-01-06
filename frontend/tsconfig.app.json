@@ -8,15 +8,18 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "noEmit": true,
     "jsx": "react-jsx",
 
