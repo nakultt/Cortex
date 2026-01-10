@@ -1,0 +1,5 @@
+# K8s secrets - DO NOT COMMIT!
+secrets.yaml
+
+# Keep template only
+!secrets.example.yaml

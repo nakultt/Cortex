@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Cortex Kubernetes - Local Development
+# Deploy with: kubectl apply -k k8s/
+
+namespace: cortex
+
+resources:
+  - base/namespace.yaml
+  - base/secrets.yaml
+  - base/postgres/pvc.yaml
+  - base/postgres/deployment.yaml
+  - base/postgres/service.yaml
+  - base/qdrant/pvc.yaml
+  - base/qdrant/deployment.yaml
+  - base/qdrant/service.yaml
+  - base/neo4j/pvc.yaml
+  - base/neo4j/deployment.yaml
+  - base/neo4j/service.yaml
+  - base/backend/deployment.yaml
+  - base/backend/service.yaml
+  - base/backend/hpa.yaml
+  - base/frontend/deployment.yaml
+  - base/frontend/service.yaml
+  - base/frontend/hpa.yaml
+  - base/ingress.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: kustomize
+      environment: local
