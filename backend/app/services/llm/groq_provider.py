@@ -28,25 +28,27 @@ class GroqProvider(LLMProvider):
         message = [
             {
                 "role": "system",
-                "context": system_instruction
+                "content": system_instruction
             },
             {
                 "role": "user",
-                "context": f"Context: {context}\n\nQustion: {query}"
+                "content": f"Context: {context}\n\nQuestion: {query}"
             }
         ]
 
         try:
+            print(f"🚀 Calling Groq API with query: {query[:50]}...")
             chat_completion = client.chat.completions.create(
                 messages=message,
                 model=settings.GROQ_MODEL,
                 temperature= 0.7
             )
-
-            return chat_completion.choices[0].message.content
+            response = chat_completion.choices[0].message.content
+            print(f"✅ Groq response received: {response[:100]}...")
+            return response
 
         except Exception as e:
-            print(f"Groq API Error : {e}")
+            print(f"❌ Groq API Error : {e}")
             return "I'm sorry, my brain is offline right now."
 
     async def extract_facts(self, text: str):
@@ -68,7 +70,7 @@ class GroqProvider(LLMProvider):
                 messages= [
                     {
                         "role": "user",
-                        "context": prompt
+                        "content": prompt
                     }
                 ],
                 model=settings.GROQ_MODEL,

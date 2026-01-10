@@ -37,16 +37,18 @@ spec:
             - name: NEO4J_server_memory_heap_initial__size
               value: "256m"
             - name: NEO4J_server_memory_heap_max__size
-              value: "512m"
+              value: "384m"
+            - name: NEO4J_server_memory_pagecache_size
+              value: "100m"
           volumeMounts:
             - name: neo4j-data
               mountPath: /data
           resources:
             requests:
-              memory: "256Mi"
+              memory: "512Mi"
               cpu: "100m"
             limits:
-              memory: "512Mi"
+              memory: "1Gi"
               cpu: "500m"
           livenessProbe:
             httpGet:
