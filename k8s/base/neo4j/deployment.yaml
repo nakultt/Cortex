@@ -30,17 +30,10 @@ spec:
               name: bolt
           env:
             - name: NEO4J_AUTH
-              value: "neo4j/$(NEO4J_PASSWORD)"
-            - name: NEO4J_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: cortex-secrets
-                  key: NEO4J_PASSWORD
-            - name: NEO4J_ACCEPT_LICENSE_AGREEMENT
-              valueFrom:
-                secretKeyRef:
-                  name: cortex-secrets
-                  key: NEO4J_ACCEPT_LICENSE_AGREEMENT
+                  key: NEO4J_AUTH
             - name: NEO4J_server_memory_heap_initial__size
               value: "256m"
             - name: NEO4J_server_memory_heap_max__size
